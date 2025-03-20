@@ -48,7 +48,13 @@
             margin-top: 10px;
             word-break: break-word;
             font-size: 14px;
+        }
+        #whatsapp-link a {
             color: #007BFF;
+            text-decoration: none;
+        }
+        #whatsapp-link a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -68,7 +74,7 @@
             let link = document.getElementById("link").value;
             let qrCodeDiv = document.getElementById("qrcode");
             qrCodeDiv.innerHTML = ""; // Limpar QR Code anterior
-            document.getElementById("whatsapp-link").innerText = "";
+            document.getElementById("whatsapp-link").innerHTML = "";
             if (link) {
                 new QRCode(qrCodeDiv, {
                     text: link,
@@ -84,7 +90,7 @@
             let numero = document.getElementById("numero").value.trim();
             let qrCodeDiv = document.getElementById("qrcode");
             qrCodeDiv.innerHTML = ""; // Limpar QR Code anterior
-            document.getElementById("whatsapp-link").innerText = "";
+            document.getElementById("whatsapp-link").innerHTML = "";
             
             if (numero && /^[0-9]{11,13}$/.test(numero)) {
                 let whatsappLink = `https://wa.me/${numero}`;
@@ -93,7 +99,7 @@
                     width: 200,
                     height: 200
                 });
-                document.getElementById("whatsapp-link").innerText = whatsappLink;
+                document.getElementById("whatsapp-link").innerHTML = `<a href='${whatsappLink}' target='_blank'>${whatsappLink}</a>`;
             } else {
                 alert("Por favor, insira um número de telefone válido com DDD.");
             }
