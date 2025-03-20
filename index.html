@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de QR Code</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            margin: auto;
+        }
+        input {
+            padding: 10px;
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 5px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #qrcode {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        #whatsapp-link {
+            margin-top: 10px;
+            word-break: break-word;
+            font-size: 14px;
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+    <h2>Gerador de QR Code</h2>
+    <div class="container">
+        <input type="text" id="link" placeholder="Insira o link aqui">
+        <button onclick="gerarQRCode()">Gerar QR Code</button>
+        <input type="text" id="numero" placeholder="Número WhatsApp (DDDNúmero)">
+        <button onclick="gerarQRCodeWhatsApp()">QR Code WhatsApp</button>
+        <div id="qrcode"></div>
+        <p id="whatsapp-link"></p>
+    </div>
+
+    <script>
+        function gerarQRCode() {
+            let link = document.getElementById("link").value;
+            let qrCodeDiv = document.getElementById("qrcode");
+            qrCodeDiv.innerHTML = ""; // Limpar QR Code anterior
+            document.getElementById("whatsapp-link").innerText = "";
+            if (link) {
+                new QRCode(qrCodeDiv, {
+                    text: link,
+                    width: 200,
+                    height: 200
+                });
+            } else {
+                alert("Por favor, insira um link válido.");
+            }
+        }
+
+        function gerarQRCodeWhatsApp() {
+            let numero = document.getElementById("numero").value.trim();
+            let qrCodeDiv = document.getElementById("qrcode");
+            qrCodeDiv.innerHTML = ""; // Limpar QR Code anterior
+            document.getElementById("whatsapp-link").innerText = "";
+            
+            if (numero && /^[0-9]{11,13}$/.test(numero)) {
+                let whatsappLink = `https://wa.me/${numero}`;
+                new QRCode(qrCodeDiv, {
+                    text: whatsappLink,
+                    width: 200,
+                    height: 200
+                });
+                document.getElementById("whatsapp-link").innerText = whatsappLink;
+            } else {
+                alert("Por favor, insira um número de telefone válido com DDD.");
+            }
+        }
+    </script>
+</body>
+</html>
