@@ -88,10 +88,13 @@
 
         function gerarQRCodeWhatsApp() {
             let numero = document.getElementById("numero").value.trim();
+            // Remover espaços, parênteses e traços
+            numero = numero.replace(/[\s\(\)\-]/g, "");
+
             let qrCodeDiv = document.getElementById("qrcode");
             qrCodeDiv.innerHTML = ""; // Limpar QR Code anterior
             document.getElementById("whatsapp-link").innerHTML = "";
-            
+
             if (numero && /^[0-9]{11,13}$/.test(numero)) {
                 let whatsappLink = `https://wa.me/${numero}`;
                 new QRCode(qrCodeDiv, {
